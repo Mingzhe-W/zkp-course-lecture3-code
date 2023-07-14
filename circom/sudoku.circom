@@ -3,9 +3,12 @@ pragma circom 2.0.0;
 template NonEqual(){
     signal input in0;
     signal input in1;
-    signal inv;
-    inv <-- 1/ (in0 - in1);
-    inv*(in0 - in1) === 1;
+ 
+    // plan: assert in0 - in1 != 0
+
+    signal diff <-- in0 - in1; 
+    signal inv <-- 1/diff;
+    diff * inv === 1;
 }
 
 template Distinct(n) {
